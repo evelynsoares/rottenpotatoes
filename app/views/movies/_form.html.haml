@@ -1,0 +1,27 @@
+= form_with(model: movie) do |form|
+  - if movie.errors.any?
+    %div{style: "color: red"}
+      %h2= "#{pluralize(movie.errors.count, "error")} prohibited this movie from being saved:"
+
+      %ul
+        - movie.errors.each do |error|
+          %li= error.full_message
+
+  %div
+    = form.label :title, style: "display: block"
+    = form.text_field :title
+
+  %div
+    = form.label :rating
+    = form.select :rating, Movie::RATINGS
+
+  %div
+    = form.label :description, style: "display: block"
+    = form.textarea :description
+
+  %div
+    = form.label :release_date, style: "display: block"
+    = form.date_field :release_date
+
+  %div
+    = form.submit

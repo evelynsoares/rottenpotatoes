@@ -1,0 +1,12 @@
+- content_for :title, "Editing movie"
+
+%h1 Editing movie
+
+= render "form", movie: @movie
+
+%br
+
+%div
+  = link_to "Show this movie", @movie
+  |
+  = link_to "Back to movies", movies_path
