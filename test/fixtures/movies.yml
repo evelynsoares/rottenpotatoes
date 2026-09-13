@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  rating: MyString
-  description: MyText
-  release_date: 2026-09-04
+  title: Toy Story
+  rating: G
+  description: Brinquedos ganham vida.
+  release_date: 1995-11-22
 
 two:
-  title: MyString
-  rating: MyString
-  description: MyText
-  release_date: 2026-09-04
+  title: The Matrix
+  rating: R
+  description: Um programador descobre a realidade.
+  release_date: 1999-03-31
