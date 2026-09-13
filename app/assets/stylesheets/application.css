@@ -61,6 +61,12 @@ table#movies th {
     font-weight: bold;
     background-color: wheat;
 }
+
+th.hilite {
+    background-color: #ffd966;
+    box-shadow: inset 0 0 0 2px #d4a017;
+}
+
 table#movies th, table#movies td {
     padding: 4px;
     text-align: left;

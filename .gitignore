@@ -33,3 +33,6 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Course reference PDFs are kept locally and are not part of the application.
+*.pdf
+

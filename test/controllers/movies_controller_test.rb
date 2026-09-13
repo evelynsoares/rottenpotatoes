@@ -10,6 +10,24 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "index should include sortable headers with ids" do
+    get movies_url, params: { sort_by: "title" }
+
+    assert_select "a#title_header", text: "Title"
+    assert_select "a#release_date_header", text: "Release Date"
+    assert_select "th.hilite a#title_header", count: 1
+  end
+
+  test "should sort movies by requested field" do
+    get movies_url, params: { sort_by: "title" }
+    movies = @controller.instance_variable_get(:@movies)
+    assert_equal Movie.order(:title).pluck(:id), movies.pluck(:id)
+
+    get movies_url, params: { sort_by: "release_date" }
+    movies = @controller.instance_variable_get(:@movies)
+    assert_equal Movie.order(:release_date).pluck(:id), movies.pluck(:id)
+  end
+
   test "should get new" do
     get new_movie_url
     assert_response :success
