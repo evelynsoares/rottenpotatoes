@@ -1,24 +1,76 @@
-# README
+# RottenPotatoes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aplicacao Rails para cadastro e consulta de filmes.
 
-Things you may want to cover:
+## Requisitos
 
-* Ruby version
+- Ruby 3.4.10
+- Bundler
+- SQLite 3
 
-* System dependencies
+O projeto usa Rails 8.1.3.1 e Haml nas views.
 
-* Configuration
+## Instalacao
 
-* Database creation
+Clone o repositorio e entre na pasta do projeto:
 
-* Database initialization
+```bash
+git clone git@github.com:evelynsoares/rottenpotatoes.git
+cd rottenpotatoes
+```
 
-* How to run the test suite
+Instale as dependencias Ruby:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+```
 
-* Deployment instructions
+## Preparar o banco de dados
 
-* ...
+Crie ou atualize o banco de desenvolvimento com as migrations:
+
+```bash
+bin/rails db:prepare
+```
+
+Para carregar os filmes de exemplo:
+
+```bash
+bin/rails db:seed
+```
+
+Os bancos SQLite sao armazenados em `storage/` e nao devem ser versionados.
+
+## Executar os testes
+
+Execute a suite completa:
+
+```bash
+bin/rails test
+```
+
+Os testes cobrem o model `Movie`, o CRUD e a ordenacao da lista por titulo ou data de lancamento.
+
+## Iniciar o servidor
+
+Inicie o servidor Rails:
+
+```bash
+bin/rails server
+```
+
+Abra [http://localhost:3000/movies](http://localhost:3000/movies) no navegador.
+
+Na lista de filmes, os cabecalhos `Title` e `Release Date` permitem ordenar os registros.
+
+## Comandos uteis
+
+```bash
+bin/rails routes       # lista as rotas da aplicacao
+bin/rails console      # abre o console Rails
+bin/rails db:reset     # recria o banco e executa as seeds
+```
+
+## Documentacao do trabalho
+
+As etapas realizadas e as decisoes do projeto estao descritas em [DOCUMENTACAO.md](DOCUMENTACAO.md).
