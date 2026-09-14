@@ -316,47 +316,6 @@ sort=release_date => "Star Wars"
 
 ---
 
-# Conformidade com o PDF
-
-## O que foi implementado de acordo com o PDF
-
-Depois da revisão, a implementação segue diretamente a lógica apresentada no PDF:
-
-- a rota principal `/movies` continua acessando a lista de filmes;
-- o controller captura `params[:sort_by]`;
-- o controller usa `Movie.order(@sort)` para alterar a ordem;
-- há suporte para ordenar por `title` e por `release_date`;
-- há links de cabeçalho na view para disparar a ordenação;
-- a view renderiza a lista em tabela e marca a coluna ativa com `hilite`.
-
-Esses pontos estão refletidos em:
-
-- [app/controllers/movies_controller.rb](app/controllers/movies_controller.rb)
-- [app/views/movies/index.html.haml](app/views/movies/index.html.haml)
-- [test/controllers/movies_controller_test.rb](test/controllers/movies_controller_test.rb)
-
-## Por que a versão anterior estava diferente
-
-A versão anterior usava `params[:sort]`, aceitava também `sort_by` como alternativa e aplicava `LOWER(title)` para títulos. Essas eram melhorias e extensões, mas não reproduziam literalmente a lógica ensinada no PDF. Elas foram removidas para que o código atual use exatamente `sort_by` e `Movie.order`, como solicitado.
-
-## Conclusão
-
-A implementação atual está alinhada ao PDF: os links enviam `sort_by`, o controller lê `params[:sort_by]` e `Movie.order` faz a ordenação.
-
-Verificação executada:
-
-```bash
-cd "/home/evelyn/Documents/2026-2/eng de software/rottenpotatoes" && bin/rails test
-```
-
-Resultado confirmado:
-
-```text
-9 runs, 18 assertions, 0 failures, 0 errors, 0 skips
-```
-
----
-
 # Etapa 8 — Depurar e testar
 
 Objetivo: usar breakpoint e testes para confirmar a lógica em execução.
@@ -447,48 +406,11 @@ Esse ajuste faz os testes refletirem as regras do model e permitirem que o CRUD 
 
 ---
 
-# Resumo final
-
-As etapas 1 a 8 formam a base do projeto RottenPotatoes:
-
-1. configurar ambiente
-2. criar projeto Rails
-3. gerar recurso Movie
-4. declarar rotas e migrar
-5. testar Active Record e validações
-6. criar Haml e seed
-7. ordenar com segurança
-8. debugar e testar funcionalmente
-
-Isso organiza a aplicação em MVC e mostra como Rails conecta:
-- rota
-- controller
-- model
-- view
-- banco de dados
-- testes
-
----
-
 # Etapa 9 — Fechamento da primeira parte
 
 Objetivo: validar o projeto completo como um conjunto funcional, cobrindo cadastro, edição, exclusão, ordenação, validação e testes.
 
-A etapa 9 não cria uma nova funcionalidade; ela é a revisão final da primeira parte do curso. O foco é verificar se a aplicação funciona como um sistema integrado.
-
-## 1) Demonstração final esperada
-
-A checklist do PDF pede que você confirme cada item:
-
-- [ ] Abrir a listagem de filmes.
-- [ ] Cadastrar um filme válido.
-- [ ] Tentar cadastrar um filme inválido e observar as mensagens.
-- [ ] Editar e excluir um filme.
-- [ ] Ordenar por título e por data.
-- [ ] Executar todos os testes com sucesso.
-- [ ] Usar um breakpoint para observar `params`.
-
-Essa é a validação final de que o projeto está coerente do início ao fim.
+A validação final de que o projeto está coerente do início ao fim.
 
 ---
 
@@ -715,17 +637,3 @@ A etapa 9 é o fechamento da prática. Ela não introduz uma nova funcionalidade
 - Debug
 
 Quando você consegue executar essa demonstração completa sem erro, o projeto está pronto para a próxima etapa do curso.
-
----
-
-# Conclusão geral
-
-O projeto RottenPotatoes foi construído em etapas progressivas:
-
-- Etapa 1 a 8: fundamentos e funcionalidade
-- Etapa 9: revisão final e validação do sistema completo
-
-A partir daqui, a próxima etapa costuma ser a Parte 2, com Git e controle de versão no RubyMine.
-
-
-Próximo passo natural: continuar com a parte da depuração no RubyMine e rodar os testes do projeto.
