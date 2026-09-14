@@ -637,3 +637,123 @@ A etapa 9 é o fechamento da prática. Ela não introduz uma nova funcionalidade
 - Debug
 
 Quando você consegue executar essa demonstração completa sem erro, o projeto está pronto para a próxima etapa do curso.
+
+---
+
+# Parte 2 — Git e GitHub
+
+Esta parte documenta, em formato de estudo dirigido, o fluxo de versionamento, colaboração e entrega descrito no PDF [Rottenpotatoes_P2-1.pdf](Rottenpotatoes_P2-1.pdf).
+
+## Etapas 1 a 6 — fundamentos de Git e GitHub
+
+### Etapa 1 — Entender Git, GitHub e os estados de um arquivo
+
+O Git controla versões localmente: alterações, commits, branches e histórico. O GitHub hospeda o repositório remoto e oferece issues, pull requests e revisão. O fluxo é:
+
+```text
+arquivo de trabalho -> stage -> commit local -> push -> GitHub
+```
+
+### Etapa 2 — Confirmar e inicializar o repositório local
+
+A raiz do repositório é `rottenpotatoes`, o Git está inicializado e a branch principal é `main`.
+
+### Etapa 3 — Configurar identidade e proteger arquivos
+
+O `.gitignore` exclui logs, arquivos temporários, armazenamento local, arquivos de ambiente, chaves e PDFs da disciplina. Segredos, bancos locais e credenciais não devem ser publicados.
+
+### Etapa 4 — Criar o primeiro commit
+
+Antes de um commit, o diff deve ser revisado e os testes executados. O histórico do projeto contém commits com mensagens descritivas.
+
+### Etapa 5 — Publicar um novo repositório no GitHub
+
+O remoto `origin` está configurado para `evelynsoares/rottenpotatoes`, e a branch `main` foi publicada no GitHub.
+
+### Etapa 6 — Compreender `origin`, `main`, `push` e `pull`
+
+```bash
+git remote -v
+git branch --show-current
+git status
+git log --oneline --decorate --graph --all
+```
+
+`push` envia commits locais ao remoto. `fetch` busca referências sem integrar mudanças. `pull` busca e integra mudanças na branch local.
+
+## Etapas 7 a 10 — issue, branch e pull request
+
+### Etapa 7 — Criar uma issue e uma branch de trabalho
+
+Foi criada a issue [#5 — Documentar como executar o RottenPotatoes](https://github.com/evelynsoares/rottenpotatoes/issues/5), com critérios para dependências, banco, testes e servidor. A branch criada foi `docs/instrucoes-execucao`.
+
+### Etapa 8 — Revisar, commitar e enviar a branch
+
+O [README.md](README.md) recebeu instruções reais para `bundle install`, `bin/rails db:prepare`, `bin/rails db:seed`, `bin/rails test` e `bin/rails server`. O diff foi revisado no VS Code, equivalente à revisão visual solicitada pelo PDF.
+
+### Etapa 9 — Abrir e revisar um pull request
+
+Foi aberto o [PR #6 — Documenta execução local do RottenPotatoes](https://github.com/evelynsoares/rottenpotatoes/pull/6), da branch `docs/instrucoes-execucao` para `main`, com `Closes #5`.
+
+### Etapa 10 — Fazer merge e sincronizar
+
+Os checks foram corrigidos, a `main` foi atualizada e o PR #6 foi mergeado. A issue #5 ficou vinculada ao pull request.
+
+## Etapa 11 — Conflito de merge
+
+Um conflito ocorre quando branches alteram a mesma parte de um arquivo de formas incompatíveis. O Git marca as versões para que a pessoa responsável escolha e escreva o resultado final.
+
+Depois da resolução:
+
+```bash
+git status
+git add README.md
+git commit
+```
+
+O arquivo deve ser revisado para garantir que nenhum marcador de conflito permaneceu. Esta é uma atividade guiada pelo professor e não foi criada artificialmente no projeto.
+
+## Etapa 12 — Histórico, recuperação e entrega
+
+O histórico pode ser analisado com:
+
+```bash
+git log --oneline --decorate --graph --all
+git show <commit>
+git blame README.md
+```
+
+`git revert <commit>` cria um novo commit que desfaz uma mudança publicada. Em trabalho colaborativo, `revert` é preferível a apagar histórico compartilhado.
+
+Checklist confirmado no projeto:
+
+- [x] Repositório GitHub acessível.
+- [x] Nenhum segredo ou banco local publicado.
+- [x] `main` atualizada e testes passando.
+- [x] Issue, branch, commit e pull request criados.
+- [x] Pull request revisado e mergeado.
+
+Evidências: [issue #5](https://github.com/evelynsoares/rottenpotatoes/issues/5), [PR #6](https://github.com/evelynsoares/rottenpotatoes/pull/6) e [repositório](https://github.com/evelynsoares/rottenpotatoes).
+
+## Etapa 13 — Cronograma e perguntas finais
+
+### Cronograma autoguiado
+
+1. Revisar conceitos e arquivos protegidos pelo `.gitignore`.
+2. Confirmar identidade Git, branch e remoto.
+3. Revisar o diff, executar testes e criar commits pequenos.
+4. Publicar a `main` no GitHub.
+5. Criar issue, branch e alteração relacionada.
+6. Revisar o diff, fazer commit e push da branch.
+7. Abrir o pull request e relacioná-lo à issue.
+8. Revisar checks, responder feedback e fazer merge.
+9. Atualizar a `main` local e conferir o histórico.
+
+### Perguntas de fechamento
+
+- **Commit e push:** `commit` registra localmente; `push` envia ao remoto.
+- **`origin`:** nome convencional do repositório remoto.
+- **Revisão do diff:** confirma as linhas alteradas e evita arquivos indevidos ou segredos.
+- **Branch:** isola a tarefa e protege a estabilidade da `main`.
+- **Novo commit no PR:** o pull request é atualizado automaticamente.
+- **Pull após merge:** sincroniza a `main` local com o merge feito no GitHub.
