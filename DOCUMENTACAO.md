@@ -288,47 +288,6 @@ sort=release_date => "Star Wars"
 
 ---
 
-# Conformidade com o PDF
-
-## O que foi implementado de acordo com o PDF
-
-Depois da revisão, a implementação segue diretamente a lógica apresentada no PDF:
-
-- a rota principal `/movies` continua acessando a lista de filmes;
-- o controller captura `params[:sort_by]`;
-- o controller usa `Movie.order(@sort)` para alterar a ordem;
-- há suporte para ordenar por `title` e por `release_date`;
-- há links de cabeçalho na view para disparar a ordenação;
-- a view renderiza a lista em tabela e marca a coluna ativa com `hilite`.
-
-Esses pontos estão refletidos em:
-
-- [app/controllers/movies_controller.rb](app/controllers/movies_controller.rb)
-- [app/views/movies/index.html.haml](app/views/movies/index.html.haml)
-- [test/controllers/movies_controller_test.rb](test/controllers/movies_controller_test.rb)
-
-## Por que a versão anterior estava diferente
-
-A versão anterior usava `params[:sort]`, aceitava também `sort_by` como alternativa e aplicava `LOWER(title)` para títulos. Essas eram melhorias e extensões, mas não reproduziam literalmente a lógica ensinada no PDF. Elas foram removidas para que o código atual use exatamente `sort_by` e `Movie.order`, como solicitado.
-
-## Conclusão
-
-A implementação atual está alinhada ao PDF: os links enviam `sort_by`, o controller lê `params[:sort_by]` e `Movie.order` faz a ordenação.
-
-Verificação executada:
-
-```bash
-cd "/home/evelyn/Documents/2026-2/eng de software/rottenpotatoes" && bin/rails test
-```
-
-Resultado confirmado:
-
-```text
-9 runs, 18 assertions, 0 failures, 0 errors, 0 skips
-```
-
----
-
 # Etapa 8 — Depurar e testar
 
 Objetivo: usar breakpoint e testes para confirmar a lógica em execução.
@@ -416,29 +375,6 @@ two:
 ```
 
 Esse ajuste faz os testes refletirem as regras do model e permitirem que o CRUD passe corretamente.
-
----
-
-# Resumo final
-
-As etapas 1 a 8 formam a base do projeto RottenPotatoes:
-
-1. configurar ambiente
-2. criar projeto Rails
-3. gerar recurso Movie
-4. declarar rotas e migrar
-5. testar Active Record e validações
-6. criar Haml e seed
-7. ordenar com segurança
-8. debugar e testar funcionalmente
-
-Isso organiza a aplicação em MVC e mostra como Rails conecta:
-- rota
-- controller
-- model
-- view
-- banco de dados
-- testes
 
 ---
 
@@ -643,53 +579,6 @@ Para impedir que o usuário envie valores arbitrários na URL e que a aplicaçã
 
 ---
 
-## 4) Perguntas de revisão do PDF
-
-- Qual é a diferença entre uma migration e um model?
-- Qual componente recebe os parâmetros da requisição?
-- Por que a validação deve permanecer no model mesmo com um campo select?
-- O que o scaffold criou e por que a rota não foi gerada automaticamente?
-- O que `resources :movies` acrescentou à aplicação?
-- Qual é a diferença entre `=` e `-` em uma view Haml?
-- Por que limitamos os campos aceitos para ordenação?
-
-Essas são as perguntas de fechamento da parte 1 e servem para revisar todo o fluxo do projeto.
-
----
-
-## 5) Prática final recomendada
-
-Antes de encerrar a parte 1, faça a sequência completa:
-
-1. abrir a listagem
-2. criar um filme válido
-3. criar um filme inválido
-4. editar um filme
-5. excluir um filme
-6. ordenar por título e data
-7. rodar todos os testes
-8. validar `params` com breakpoint
-
-Se tudo isso funcionar, a primeira parte do RottenPotatoes está concluída e pronta para a Parte 2, que fala de Git e controle de versão.
-
----
-
-## 6) Resumo final da etapa 9
-
-A etapa 9 é o fechamento da prática. Ela não introduz uma nova funcionalidade nova; ela valida, em conjunto, tudo o que foi construído:
-
-- CRUD
-- Model com validações
-- Haml e formulário
-- Seed
-- Ordenação segura
-- Testes
-- Debug
-
-Quando você consegue executar essa demonstração completa sem erro, o projeto está pronto para a próxima etapa do curso.
-
----
-
 # Parte 2 — Git e GitHub
 
 Esta parte documenta o fluxo de versionamento, colaboração e entrega descrito no PDF [Rottenpotatoes_P2-1.pdf](Rottenpotatoes_P2-1.pdf).
@@ -815,7 +704,3 @@ Evidências: [issue #5](https://github.com/evelynsoares/rottenpotatoes/issues/5)
 - **Branch:** isola a tarefa e protege a estabilidade da `main`.
 - **Novo commit no PR:** o pull request é atualizado automaticamente.
 - **Pull após merge:** sincroniza a `main` local com o merge feito no GitHub.
-
-## Conclusão
-
-A documentação agora segue a ordem didática correta: primeiro a Parte 1, com todas as etapas Rails, e depois a Parte 2, com todas as etapas de Git e GitHub.
