@@ -14,7 +14,8 @@ Feature: Movies, when added, should appear in the movie list sorted by title
   Scenario: View movie list after adding 2 movies (Imperative)
     Given I am on the RottenPotatoes home page
     When I follow "New movie"
-    And I fill in "Title" with "Zorro"
+    Then I should be on the Create New Movie page
+    When I fill in "Title" with "Zorro"
     And I select "PG" from "Rating"
     And I fill in "Release date" with "2020-05-01"
     And I press "Create Movie"
@@ -23,7 +24,8 @@ Feature: Movies, when added, should appear in the movie list sorted by title
     Then I should be on the RottenPotatoes home page
 
     When I follow "New movie"
-    And I fill in "Title" with "Apocalypse Now"
+    Then I should be on the Create New Movie page
+    When I fill in "Title" with "Apocalypse Now"
     And I select "R" from "Rating"
     And I fill in "Release date" with "1979-08-15"
     And I press "Create Movie"

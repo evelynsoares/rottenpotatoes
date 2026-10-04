@@ -14,6 +14,12 @@ Then("I should be on the RottenPotatoes home page") do
   end
 end
 
+Then("I should be on the Create New Movie page") do
+  unless current_path == new_movie_path
+    raise "expected to be on the Create New Movie page, but was on #{current_path}"
+  end
+end
+
 # --- Declarative step ------------------------------------------------
 # Instead of spelling out "visit new movie page, fill in title, select
 # rating, fill in release date, press Create Movie" for every movie we
