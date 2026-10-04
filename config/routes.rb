@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resources :movies
+
+  # Route that receives the "Search TMDb" form from the home page (sad path
+  # scenario: it is a POST, not a RESTful member/collection route of :movies)
+  post "movies/search_tmdb" => "movies#search_tmdb", as: :search_tmdb
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -10,7 +14,7 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Defines the root path route ("/") as the RottenPotatoes home page
+  root "movies#index"
   resources :movies
 end

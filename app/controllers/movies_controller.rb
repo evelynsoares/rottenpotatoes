@@ -11,6 +11,17 @@ class MoviesController < ApplicationController
   def show
   end
 
+  # POST /movies/search_tmdb
+  #
+  # Ainda não há integração real com a API do TMDb (isso seria implementado
+  # futuramente via TDD). Por enquanto, o método é "hardwired" para sempre
+  # falhar, apenas para permitir validar o cenário de sad path do TMDb:
+  # "Try to add nonexistent movie".
+  def search_tmdb
+    flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
+    redirect_to movies_path
+  end
+
   # GET /movies/new
   def new
     @movie = Movie.new

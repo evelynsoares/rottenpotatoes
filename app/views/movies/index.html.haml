@@ -1,4 +1,5 @@
 %p{style: "color: green"}= notice
+%p{style: "color: #b36b00"}= flash[:warning]
 
 - content_for :title, "Movies"
 
@@ -25,3 +26,11 @@
 %p
   - if @sort.present?
     Ordenado por: #{@sort}
+
+%h1 Search TMDb for a movie
+
+= form_with url: search_tmdb_path, method: :post, local: true do |form|
+  %label{for: "search_terms"} Search Terms
+  = text_field_tag "search_terms"
+  = submit_tag "Search TMDb"
+

@@ -65,4 +65,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # BDD: run Cucumber/Gherkin feature files against this Rails app
+  gem "cucumber-rails", require: false
+  # Resets the database between Cucumber scenarios
+  gem "database_cleaner-active_record"
 end
