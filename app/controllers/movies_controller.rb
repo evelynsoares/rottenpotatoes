@@ -2,9 +2,17 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
 
   # GET /movies or /movies.json
+  #
+  # Filtro por classificação (ratings[]=PG&ratings[]=R...): sem o parâmetro,
+  # todas as classificações são exibidas. O filtro e a ordenação são
+  # independentes e podem ser combinados.
   def index
+    @all_ratings = Movie::RATINGS
+    @ratings_to_show = params[:ratings].present? ? Array(params[:ratings]) & @all_ratings : @all_ratings
     @sort = params[:sort_by]
-    @movies = @sort ? Movie.order(@sort) : Movie.all
+
+    @movies = Movie.where(rating: @ratings_to_show)
+    @movies = @movies.order(@sort) if @sort
   end
 
   # GET /movies/1 or /movies/1.json
