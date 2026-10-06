@@ -40,3 +40,25 @@ end
 When("I view the movie list sorted by title") do
   visit movies_path(sort_by: "title")
 end
+
+# --- Filtering by MPAA rating (HW3, part 2) --------------------------
+# One step instead of "When I check 'PG'", "And I check 'R'"...: matches
+# both "I check the following ratings: PG, R" and "I uncheck the following
+# ratings: G, PG-13". It only touches the listed boxes, leaving the others
+# as they were, and reuses the generic check/uncheck steps in web_steps.rb.
+When(/^I (un)?check the following ratings: (.*)$/) do |uncheck, rating_list|
+  rating_list.split(/,\s*/).each do |rating|
+    step %(I #{uncheck}check "ratings_#{rating}")
+  end
+end
+
+When("I check all ratings") do
+  step "I check the following ratings: #{Movie::RATINGS.join(', ')}"
+end
+
+# Naming every movie with "I should see" would hide the intent of the
+# scenario, so we count the rows of the movie table instead and compare
+# with the number of movies in the database.
+Then("I should see all of the movies") do
+  page.assert_selector("table#movies tbody tr", count: Movie.count)
+end

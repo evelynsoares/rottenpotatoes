@@ -7,14 +7,23 @@
 
 = link_to "New movie", new_movie_path
 
+-# Filtro por classificação: mantém a ordenação atual (sort_by) ao enviar.
+= form_with url: movies_path, method: :get, id: "ratings_form", local: true do
+  = hidden_field_tag "sort_by", @sort if @sort.present?
+  Include:
+  - @all_ratings.each do |rating|
+    = label_tag "ratings_#{rating}", rating
+    = check_box_tag "ratings[]", rating, @ratings_to_show.include?(rating), id: "ratings_#{rating}"
+  = submit_tag "Refresh", id: "ratings_submit", name: nil
+
 %table#movies
   %thead
     %tr
       %th{class: ("hilite" if @sort == "title")}
-        = link_to "Title", movies_path(sort_by: "title"), id: "title_header"
+        = link_to "Title", movies_path(sort_by: "title", ratings: @ratings_to_show), id: "title_header"
       %th Rating
       %th{class: ("hilite" if @sort == "release_date")}
-        = link_to "Release Date", movies_path(sort_by: "release_date"), id: "release_date_header"
+        = link_to "Release Date", movies_path(sort_by: "release_date", ratings: @ratings_to_show), id: "release_date_header"
 
   %tbody
     - @movies.each do |movie|

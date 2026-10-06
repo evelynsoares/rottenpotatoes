@@ -20,6 +20,14 @@ When("I follow {string}") do |link_text|
   click_link link_text
 end
 
+When("I check {string}") do |field|
+  check field
+end
+
+When("I uncheck {string}") do |field|
+  uncheck field
+end
+
 Then("I should see {string}") do |text|
   page.assert_text(text)
 end
@@ -28,8 +36,9 @@ Then("I should not see {string}") do |text|
   page.assert_no_text(text)
 end
 
-# Used by the declarative sorting scenario (and reusable by any future
-# scenario that needs to check relative order of two pieces of text).
+# Used by the sorting scenarios (view_movie_list.feature and
+# sort_movie_list.feature): page.body is the whole HTML as one string, so
+# the regexp only matches if `first` shows up somewhere before `second`.
 Then("I should see {string} before {string}") do |first, second|
   regexp = /#{Regexp.escape(first)}.*#{Regexp.escape(second)}/m
   unless page.body =~ regexp
