@@ -82,3 +82,7 @@ form label {
     font-weight: bold;
     color: maroon;
 }
+#ratings_form label {
+    display: inline;
+    margin-left: 8px;
+}
