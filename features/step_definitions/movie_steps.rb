@@ -38,30 +38,6 @@ Given("the following movies exist:") do |movies_table|
 end
 
 
-# --- HW3: filtering and sorting steps -------------------------------
-
-# Reuses the generic check/uncheck steps; only the listed boxes are touched.
-When(/^I (un)?check the following ratings: (.*)$/) do |uncheck, rating_list|
-  rating_list.split(",").map(&:strip).each do |rating|
-    step %(I #{uncheck}check "ratings_#{rating}")
-  end
-end
-
-When("I check all ratings") do
-  step "I check the following ratings: #{Movie::RATINGS.join(', ')}"
-end
-
-Then("I should see all of the movies") do
-  rows = page.all("table#movies tbody tr").count
-  unless rows == Movie.count
-    raise "expected #{Movie.count} movie rows, but found #{rows}"
-  end
-end
-
-When("I view the movie list sorted by title") do
-  visit movies_path(sort_by: "title")
-end
-
 # --- Filtering by MPAA rating (HW3, part 2) --------------------------
 # One step instead of "When I check 'PG'", "And I check 'R'"...: matches
 # both "I check the following ratings: PG, R" and "I uncheck the following
@@ -82,4 +58,8 @@ end
 # with the number of movies in the database.
 Then("I should see all of the movies") do
   page.assert_selector("table#movies tbody tr", count: Movie.count)
+end
+
+When("I view the movie list sorted by title") do
+  visit movies_path(sort_by: "title")
 end

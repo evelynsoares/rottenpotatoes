@@ -20,13 +20,6 @@ When("I follow {string}") do |link_text|
   click_link link_text
 end
 
-When("I check {string}") do |field|
-  check field
-end
-
-When("I uncheck {string}") do |field|
-  uncheck field
-end
 
 Then("I should see {string}") do |text|
   page.assert_text(text)
