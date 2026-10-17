@@ -10,9 +10,9 @@ class MoviesController < ApplicationController
     @all_ratings = Movie::RATINGS
     @ratings_to_show = params[:ratings].present? ? Array(params[:ratings]) & @all_ratings : @all_ratings
     @sort = params[:sort_by]
-
-    @movies = Movie.where(rating: @ratings_to_show)
-    @movies = @movies.order(@sort) if @sort
+    @selected_ratings = selected_ratings
+    @movies = Movie.where(rating: @selected_ratings)
+    @movies = @movies.order(@sort) if Movie::RATINGS_SORT_COLUMNS.include?(@sort)
   end
 
   # GET /movies/1 or /movies/1.json
@@ -78,6 +78,14 @@ class MoviesController < ApplicationController
   end
 
   private
+    # With no filter submitted every rating is shown; once the ratings form
+    # is submitted, only the checked ones are (possibly none).
+    def selected_ratings
+      return Movie::RATINGS unless params[:ratings_submitted]
+
+      (params[:ratings]&.keys || []) & Movie::RATINGS
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params.expect(:id))

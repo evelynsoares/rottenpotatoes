@@ -13,7 +13,7 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
   test "index should include sortable headers with ids" do
     get movies_url, params: { sort_by: "title" }
 
-    assert_select "a#title_header", text: "Title"
+    assert_select "a#title_header", text: "Movie Title"
     assert_select "a#release_date_header", text: "Release Date"
     assert_select "th.hilite a#title_header", count: 1
   end

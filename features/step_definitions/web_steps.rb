@@ -45,3 +45,11 @@ Then("I should see {string} before {string}") do |first, second|
     raise "expected to find \"#{first}\" before \"#{second}\", but didn't"
   end
 end
+
+When("I check {string}") do |field|
+  check field
+end
+
+When("I uncheck {string}") do |field|
+  uncheck field
+end
