@@ -74,3 +74,11 @@ bin/rails db:reset     # recria o banco e executa as seeds
 ## Documentacao do trabalho
 
 As etapas realizadas e as decisoes do projeto estao descritas em [DOCUMENTACAO.md](DOCUMENTACAO.md).
+
+<img width="1873" height="826" alt="image" src="https://github.com/user-attachments/assets/3455ebad-727b-4cfc-9ac9-522191c09cde" />
+
+<img width="1892" height="891" alt="image" src="https://github.com/user-attachments/assets/59474e22-7ef8-4913-a77c-b76b64c8e5c4" />
+
+<img width="1900" height="879" alt="image" src="https://github.com/user-attachments/assets/f510d59d-c4fe-432c-afea-57deba6b498d" />
+
+<img width="1902" height="857" alt="image" src="https://github.com/user-attachments/assets/f453ddc5-97ca-4d2f-9112-ce40f261fc59" />
