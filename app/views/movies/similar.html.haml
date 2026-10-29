@@ -1,0 +1,26 @@
+- content_for :title, "Similar movies"
+
+%h1 Movies by #{@movie.director}
+
+%p
+  Other movies with the same director as
+  = link_to @movie.title, @movie
+
+- if @movies.empty?
+  %p No other movies by this director yet.
+- else
+  %table#movies
+    %thead
+      %tr
+        %th Movie Title
+        %th Rating
+        %th Release Date
+    %tbody
+      - @movies.each do |movie|
+        %tr
+          %td= link_to movie.title, movie
+          %td= movie.rating
+          %td= movie.release_date
+
+%div
+  = link_to "Back to movies", movies_path

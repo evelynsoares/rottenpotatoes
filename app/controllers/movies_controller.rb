@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :set_movie, only: %i[ show edit update destroy similar ]
 
   # GET /movies or /movies.json
   #
@@ -17,6 +17,19 @@ class MoviesController < ApplicationController
 
   # GET /movies/1 or /movies/1.json
   def show
+  end
+
+  # GET /movies/1/similar
+  #
+  # "Find Movies With Same Director". O sad path (filme sem diretor) é
+  # tratado aqui: volta para a lista de filmes com um aviso.
+  def similar
+    if @movie.director.blank?
+      flash[:warning] = "'#{@movie.title}' has no director info"
+      redirect_to movies_path
+    else
+      @movies = @movie.others_by_same_director
+    end
   end
 
   # POST /movies/search_tmdb
@@ -93,6 +106,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.expect(movie: [ :title, :rating, :description, :release_date ])
+      params.expect(movie: [ :title, :rating, :description, :release_date, :director ])
     end
 end

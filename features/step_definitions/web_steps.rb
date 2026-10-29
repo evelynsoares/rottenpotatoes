@@ -4,6 +4,23 @@
 # calls, so each feature stays readable without re-implementing the same
 # low level interaction for every scenario.
 
+# Navigation: page names are translated to paths by path_to
+# (features/support/paths.rb).
+Given(/^I am on (.+)$/) do |page_name|
+  visit path_to(page_name)
+end
+
+When(/^I go to (.+)$/) do |page_name|
+  visit path_to(page_name)
+end
+
+Then(/^I should be on (.+)$/) do |page_name|
+  expected_path = path_to(page_name)
+  unless current_path == expected_path
+    raise "expected to be on #{page_name} (#{expected_path}), but was on #{current_path}"
+  end
+end
+
 When("I fill in {string} with {string}") do |field, value|
   fill_in field, with: value
 end

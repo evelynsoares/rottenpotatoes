@@ -24,4 +24,9 @@
     = form.date_field :release_date
 
   %div
-    = form.submit
+    = form.label :director, style: "display: block"
+    = form.text_field :director
+
+  %div
+    -# nil keeps Rails' default label ("Create Movie" / "Update Movie")
+    = form.submit local_assigns[:submit_label]

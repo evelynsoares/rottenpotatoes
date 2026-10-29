@@ -54,6 +54,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # TDD: unit/controller specs under spec/ (HW4)
+  gem "rspec-rails"
 end
 
 group :development do
@@ -70,4 +73,8 @@ group :test do
   gem "cucumber-rails", require: false
   # Resets the database between Cucumber scenarios
   gem "database_cleaner-active_record"
+  # assigns/render_template in controller specs
+  gem "rails-controller-testing"
+  # Code coverage report (coverage/), merging RSpec and Cucumber runs
+  gem "simplecov", require: false
 end

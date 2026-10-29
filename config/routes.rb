@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   # Route that receives the "Search TMDb" form from the home page (sad path
   # scenario: it is a POST, not a RESTful member/collection route of :movies)
   post "movies/search_tmdb" => "movies#search_tmdb", as: :search_tmdb
+
+  # "Find Movies With Same Director" (HW4): non-resource-based route; `get`
+  # is the short form of `match ..., via: :get`. `as:` creates the
+  # similar_movie_path(movie) helper used by the show view.
+  get "movies/:id/similar" => "movies#similar", as: :similar_movie
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,24 +1,7 @@
 # Step definitions specific to the RottenPotatoes "movies" domain: they
-# know about app routes/pages (home page, create-movie page) and about
-# the Movie model (used directly by the declarative step below).
-
-Given("I am on the RottenPotatoes home page") do
-  visit root_path
-end
-
-# In this app both "/" (root) and "/movies" render the same movie list,
-# so either one counts as "the RottenPotatoes home page".
-Then("I should be on the RottenPotatoes home page") do
-  unless [ root_path, movies_path ].include?(current_path)
-    raise "expected to be on the RottenPotatoes home page, but was on #{current_path}"
-  end
-end
-
-Then("I should be on the Create New Movie page") do
-  unless current_path == new_movie_path
-    raise "expected to be on the Create New Movie page, but was on #{current_path}"
-  end
-end
+# know about the Movie model (used directly by the declarative steps
+# below). Navigation steps ("I am on the ... page") live in web_steps.rb
+# and features/support/paths.rb.
 
 # --- Declarative step ------------------------------------------------
 # Instead of spelling out "visit new movie page, fill in title, select
@@ -32,8 +15,20 @@ Given("the following movies exist:") do |movies_table|
     Movie.create!(
       title: movie_attributes["title"],
       rating: movie_attributes["rating"],
-      release_date: movie_attributes["release_date"]
+      release_date: movie_attributes["release_date"],
+      # optional column (HW4); an empty cell means "no director info"
+      director: movie_attributes["director"].presence
     )
+  end
+end
+
+# --- Director info (HW4) ---------------------------------------------
+# Checks the saved record, not the page: the scenario is about the
+# director being stored, wherever it is displayed afterwards.
+Then("the director of {string} should be {string}") do |title, director|
+  actual = Movie.find_by!(title: title).director
+  unless actual == director
+    raise "expected the director of \"#{title}\" to be \"#{director}\", but was #{actual.inspect}"
   end
 end
 
